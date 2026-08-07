@@ -70,7 +70,7 @@ private _fnc_getLoad = {
         private _amount = 1;
         private _nextIndex = _index + 1;
 
-        if (_nextIndex < _itemsCount) then {
+        if (typeName _entry == "STRING" && {_nextIndex < _itemsCount}) then {
             private _nextEntry = _itemsList select _nextIndex;
             if (typeName _nextEntry == "SCALAR") then {
                 _amount = floor _nextEntry;
@@ -81,8 +81,12 @@ private _fnc_getLoad = {
             };
         };
 
-        if (_amount > 0 && {typeName _entry != "SCALAR"}) then {
+        if (typeName _entry == "STRING") then {
             for "_i" from 1 to _amount do {
+                _normalizedItems pushBack _entry;
+            };
+        } else {
+            if (typeName _entry != "SCALAR") then {
                 _normalizedItems pushBack _entry;
             };
         };
