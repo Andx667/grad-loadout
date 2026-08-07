@@ -37,25 +37,23 @@ while {_index < _contentCount} do {
         };
     };
 
-    if (_amount > 0) then {
-        if ((typeName _entry) == "ARRAY") then {
-            if (isClass (configFile >> "CfgWeapons" >> (_entry select 0))) then {
-                _entry params ["_weapon", "_muzzle", "_pointer", "_optics", "_magazine", "_underbarrelMagazine", "_underbarrel"];
+    if ((typeName _entry) == "ARRAY") then {
+        if (isClass (configFile >> "CfgWeapons" >> (_entry select 0))) then {
+            _entry params ["_weapon", "_muzzle", "_pointer", "_optics", "_magazine", "_underbarrelMagazine", "_underbarrel"];
 
-                if (!(_magazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _magazine >> "count")) then {
-                    _magazine = [_magazine, (getNumber (configFile >> "CfgMagazines" >> _magazine >> "count"))];
-                };
-                if (!(_underbarrelMagazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count")) then {
-                    _underbarrelMagazine = [_underbarrelMagazine, (getNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count"))];
-                };
-                for "_i" from 1 to _amount do {
-                    _contentForLoadout pushBack [[_weapon, _muzzle, _pointer, _optics, _magazine, _underbarrelMagazine, _underbarrel], 1];
-                };
+            if (!(_magazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _magazine >> "count")) then {
+                _magazine = [_magazine, (getNumber (configFile >> "CfgMagazines" >> _magazine >> "count"))];
             };
-        } else {
-            if (typeName _entry == "STRING") then {
-                [_magazines, _entry, _amount] call _CBA_fnc_hashIncr;
+            if (!(_underbarrelMagazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count")) then {
+                _underbarrelMagazine = [_underbarrelMagazine, (getNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count"))];
             };
+            for "_i" from 1 to _amount do {
+                _contentForLoadout pushBack [[_weapon, _muzzle, _pointer, _optics, _magazine, _underbarrelMagazine, _underbarrel], 1];
+            };
+        };
+    } else {
+        if (typeName _entry == "STRING") then {
+            [_magazines, _entry, _amount] call _CBA_fnc_hashIncr;
         };
     };
 

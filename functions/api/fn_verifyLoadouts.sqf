@@ -74,6 +74,9 @@ private _fnc_getLoad = {
             private _nextEntry = _itemsList select _nextIndex;
             if (typeName _nextEntry == "SCALAR") then {
                 _amount = floor _nextEntry;
+                if (_amount < 1) then {
+                    _amount = 1;
+                };
                 _index = _index + 1;
             };
         };
