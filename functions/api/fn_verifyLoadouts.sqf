@@ -61,11 +61,37 @@ private _fnc_getMass = {
 
 private _fnc_getLoad = {
     params ["_container","_itemsList"];
+
+    private _normalizedItems = [];
+    private _index = 0;
+    private _itemsCount = count _itemsList;
+    while {_index < _itemsCount} do {
+        private _entry = _itemsList select _index;
+        private _amount = 1;
+        private _nextIndex = _index + 1;
+
+        if (_nextIndex < _itemsCount) then {
+            private _nextEntry = _itemsList select _nextIndex;
+            if (typeName _nextEntry == "SCALAR") then {
+                _amount = floor _nextEntry;
+                _index = _index + 1;
+            };
+        };
+
+        if (_amount > 0 && {typeName _entry != "SCALAR"}) then {
+            for "_i" from 1 to _amount do {
+                _normalizedItems pushBack _entry;
+            };
+        };
+
+        _index = _index + 1;
+    };
+
     _load = 0;
     {
         _load = _load + ([_x] call _fnc_getMass);
         false
-    } count _itemsList;
+    } count _normalizedItems;
     _maxLoad = getContainerMaxLoad _container;
 
     _loadRatio = if (_maxLoad <= 0) then {-1} else {_load/_maxLoad};
