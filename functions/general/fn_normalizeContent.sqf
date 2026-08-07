@@ -30,6 +30,9 @@ while {_index < _contentCount} do {
         private _nextEntry = _contentFromConfig select _nextIndex;
         if (typeName _nextEntry == "SCALAR") then {
             _amount = floor _nextEntry;
+            if (_amount < 1) then {
+                _amount = 1;
+            };
             _index = _index + 1;
         };
     };
@@ -45,7 +48,9 @@ while {_index < _contentCount} do {
                 if (!(_underbarrelMagazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count")) then {
                     _underbarrelMagazine = [_underbarrelMagazine, (getNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count"))];
                 };
-                _contentForLoadout pushBack [[_weapon, _muzzle, _pointer, _optics, _magazine, _underbarrelMagazine, _underbarrel], _amount];
+                for "_i" from 1 to _amount do {
+                    _contentForLoadout pushBack [[_weapon, _muzzle, _pointer, _optics, _magazine, _underbarrelMagazine, _underbarrel], 1];
+                };
             };
         } else {
             if (typeName _entry == "STRING") then {

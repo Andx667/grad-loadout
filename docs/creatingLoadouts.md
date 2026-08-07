@@ -80,7 +80,7 @@ addItemsToVest[] = {
 This is fully compatible with existing `LIST_X(...)` macros, inheritance, and `+=` class expansion.
 
 ## Classes
-There are a couple of generic classes for you to use, ontop of being able to specify a unit classname and just designating a unit name. The priority in order is this:
+There are a couple of generic classes for you to use, on top of being able to specify a unit classname and just designating a unit name. The priority in order is this:
 
 * Loadouts/
     * AllUnits
