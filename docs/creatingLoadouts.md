@@ -66,6 +66,19 @@ The loadout options are completely modular, just use what you need and nothing m
 | `watch`                            | Replaces watch.                                                                  |
 | `radio`                            | Replaces radio (set also `handleRadios`, see [Configuration](configuration.md) ) |
 
+## Item count shorthand
+For `addItemsToUniform[]`, `addItemsToVest[]` and `addItemsToBackpack[]`, you can use either repeated items/macros or an item-count pair.
+
+```sqf
+addItemsToVest[] = {
+    "30Rnd_556x45_Stanag", 6,
+    "30Rnd_556x45_Stanag_Tracer_Red", 2,
+    "SmokeShellGreen"
+};
+```
+
+This is fully compatible with existing `LIST_X(...)` macros, inheritance, and `+=` class expansion.
+
 ## Classes
 There are a couple of generic classes for you to use, ontop of being able to specify a unit classname and just designating a unit name. The priority in order is this:
 

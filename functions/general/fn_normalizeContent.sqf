@@ -7,9 +7,9 @@
 params ["_contentFromConfig"];
 
 private _CBA_fnc_hashIncr = {
-    params ["_hash","_key"];
+    params ["_hash", "_key", ["_amount", 1]];
 
-    _value = 1;
+    _value = _amount;
     if ([_hash, _key] call CBA_fnc_hashHasKey) then {
         _value = _value + ([_hash, _key] call CBA_fnc_hashGet);
     };
@@ -19,23 +19,43 @@ private _CBA_fnc_hashIncr = {
 private _magazines = [] call CBA_fnc_hashCreate;
 private _contentForLoadout = [];
 
-{
-    if ((typeName _x) == "ARRAY") then {
-        if (isClass (configFile >> "CfgWeapons" >> (_x select 0))) then {
-            _x params ["_weapon", "_muzzle", "_pointer", "_optics", "_magazine", "_underbarrelMagazine", "_underbarrel"];
+private _index = 0;
+private _contentCount = count _contentFromConfig;
+while {_index < _contentCount} do {
+    private _entry = _contentFromConfig select _index;
+    private _amount = 1;
+    private _nextIndex = _index + 1;
 
-            if (!(_magazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _magazine >> "count")) then {
-                _magazine = [_magazine, (getNumber (configFile >> "CfgMagazines" >> _magazine >> "count"))];
-            };
-            if (!(_underbarrelMagazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count")) then {
-                _underbarrelMagazine = [_underbarrelMagazine, (getNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count"))];
-            };
-            _contentForLoadout pushBack [[_weapon, _muzzle, _pointer, _optics, _magazine, _underbarrelMagazine, _underbarrel],1];
+    if (_nextIndex < _contentCount) then {
+        private _nextEntry = _contentFromConfig select _nextIndex;
+        if (typeName _nextEntry == "SCALAR") then {
+            _amount = floor _nextEntry;
+            _index = _index + 1;
         };
-    } else {
-        [_magazines, _x] call _CBA_fnc_hashIncr;
     };
-} forEach _contentFromConfig;
+
+    if (_amount > 0) then {
+        if ((typeName _entry) == "ARRAY") then {
+            if (isClass (configFile >> "CfgWeapons" >> (_entry select 0))) then {
+                _entry params ["_weapon", "_muzzle", "_pointer", "_optics", "_magazine", "_underbarrelMagazine", "_underbarrel"];
+
+                if (!(_magazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _magazine >> "count")) then {
+                    _magazine = [_magazine, (getNumber (configFile >> "CfgMagazines" >> _magazine >> "count"))];
+                };
+                if (!(_underbarrelMagazine isEqualTo "") && isNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count")) then {
+                    _underbarrelMagazine = [_underbarrelMagazine, (getNumber (configFile >> "CfgMagazines" >> _underbarrelMagazine >> "count"))];
+                };
+                _contentForLoadout pushBack [[_weapon, _muzzle, _pointer, _optics, _magazine, _underbarrelMagazine, _underbarrel], _amount];
+            };
+        } else {
+            if (typeName _entry == "STRING") then {
+                [_magazines, _entry, _amount] call _CBA_fnc_hashIncr;
+            };
+        };
+    };
+
+    _index = _index + 1;
+};
 
 [
     _magazines,
