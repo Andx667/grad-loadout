@@ -54,7 +54,9 @@ function unitLoadoutToGradLoadout(inputArray) {
     }
     return out;
 }
-exports.unitLoadoutToGradLoadout = unitLoadoutToGradLoadout;
+if (typeof exports !== "undefined") {
+    exports.unitLoadoutToGradLoadout = unitLoadoutToGradLoadout;
+}
 function transformContainerContents(contents) {
     var result = [];
     contents.forEach(function (contentItem) {

@@ -64,6 +64,9 @@ var useListNMacro = true;
 
 var depth = 0;
 
+// Also loaded as a plain <script> (see docs/converter.md), so the compiled .js
+// guards its `exports.unitLoadoutToGradLoadout = ...` line with a typeof check
+// instead of relying on `exports` existing. Keep that guard if you recompile this file.
 export function unitLoadoutToGradLoadout(inputArray: Array<any>) {
 
     var loadout: Loadout = {};
