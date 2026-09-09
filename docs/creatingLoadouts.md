@@ -24,7 +24,7 @@ To see if your loadouts were applied correctly, you can use the chat command `#g
 To check all currently loaded loadouts, you can use the chat command `#grad-loadout verify`. This will test the loadouts of all units currently in the game and output errors and warning to your rpt file.
 
 ## Randomization
-If you are defining an array where you would usually expect a single item (e.g. `uniform`, `primaryWeapon`, etc.) a random item of the array will be selected on a per-unit basis, if not disabled by config or script (see [GRAD_Loadout_fnc_setRandomizationMode](functions.md#GRAD_Loadout_fnc_setRandomizationMode) and [Configuration](configuration.md)).
+If you are defining an array where you would usually expect a single item (e.g. `uniform`, `primaryWeapon`, etc.) a random item of the array will be selected on a per-unit basis, if not disabled by config or script (see [GRAD_Loadout_fnc_setRandomizationMode](functions.md#grad_loadout_fnc_setrandomizationmode) and [Configuration](configuration.md)).
 
 **Example:**
 ```sqf
@@ -101,7 +101,7 @@ There are a couple of generic classes for you to use, on top of being able to sp
     * Role/
         * unit role
     * Faction/
-        * faction name, e.g. BLU_F . Aliasing possible, see [GRAD_Loadout_fnc_FactionSetLoadout](functions.md#GRAD_Loadout_fnc_factionSetLoadout)!
+        * faction name, e.g. BLU_F . Aliasing possible, see [GRAD_Loadout_fnc_FactionSetLoadout](functions.md#grad_loadout_fnc_factionsetloadout)!
             * AllUnits
             * AllAi
             * AllPlayers
@@ -114,7 +114,7 @@ Loadout is read from top to bottom, and augemented/overwritten along the way.
 ## Special Case: Using "Faction"
 Most of the classes mentioned above are self explanatory, but a few words need to be said about the `Faction` class:
 
-`Faction` allows you to create `typeOf` unit based loadouts that can then be dynamically assigned to any of the three main vanilla faction (NATO, CSAT, AAF) - this is shown in the [Complete Example](creatingLoadouts.md#Complete-Example). For this to work, you need to use the *defactionized* type of a unit, so instead of `B_Soldier_F` (which is a BLUFOR rifleman) you would use `Soldier_F` (which is any rifleman).
+`Faction` allows you to create `typeOf` unit based loadouts that can then be dynamically assigned to any of the three main vanilla faction (NATO, CSAT, AAF) - this is shown in the [Complete Example](creatingLoadouts.md#complete-example). For this to work, you need to use the *defactionized* type of a unit, so instead of `B_Soldier_F` (which is a BLUFOR rifleman) you would use `Soldier_F` (which is any rifleman).
 
 Grad-Loadout will check if a unit can be defactionized and then check if an applicable loadout exists. If Grad-Loadout encounters a unit that can not be defactionized (i.e. a unit that is not one of the three vanilla factions), it will instead look for its full `typeOf` name.
 
