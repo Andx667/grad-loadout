@@ -16,6 +16,8 @@ function augmentWeapon(weaponName, weaponArray) {
     result[weaponName + 'Muzzle'] = weaponArray[1] || "";
     result[weaponName + 'Pointer'] = weaponArray[2] || "";
     result[weaponName + 'Optics'] = weaponArray[3] || "";
+    result[weaponName + 'Magazine'] = weaponArray[4] || "";
+    result[weaponName + 'UnderbarrelMagazine'] = weaponArray[5] || "";
     result[weaponName + 'Underbarrel'] = weaponArray[6] || "";
     return result;
 }

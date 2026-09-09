@@ -20,14 +20,20 @@ interface Loadout {
     primaryWeaponMuzzle?: string;
     primaryWeaponOptics?: string;
     primaryWeaponPointer?: string;
+    primaryWeaponMagazine?: string;
+    primaryWeaponUnderbarrelMagazine?: string;
     primaryWeaponUnderbarrel?: string;
     secondaryWeaponMuzzle?: string;
     secondaryWeaponOptics?: string;
     secondaryWeaponPointer?: string;
+    secondaryWeaponMagazine?: string;
+    secondaryWeaponUnderbarrelMagazine?: string;
     secondaryWeaponUnderbarrel?: string;
     handgunWeaponMuzzle?: string;
     handgunWeaponOptics?: string;
     handgunWeaponPointer?: string;
+    handgunWeaponMagazine?: string;
+    handgunWeaponUnderbarrelMagazine?: string;
     handgunWeaponUnderbarrel?: string;
     headgear?: string;
     goggles?: string;
@@ -47,6 +53,8 @@ function augmentWeapon(weaponName: string, weaponArray: Array<any>): Object {
     result[weaponName + 'Muzzle'] = weaponArray[1] || "";
     result[weaponName + 'Pointer'] = weaponArray[2] || "";
     result[weaponName + 'Optics'] = weaponArray[3] || "";
+    result[weaponName + 'Magazine'] = weaponArray[4] || "";
+    result[weaponName + 'UnderbarrelMagazine'] = weaponArray[5] || "";
     result[weaponName + 'Underbarrel'] = weaponArray[6] || "";
 
     return result;

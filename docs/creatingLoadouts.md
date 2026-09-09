@@ -66,8 +66,22 @@ The loadout options are completely modular, just use what you need and nothing m
 | `watch`                            | Replaces watch.                                                                  |
 | `radio`                            | Replaces radio (set also `handleRadios`, see [Configuration](configuration.md) ) |
 
+## Item count shorthand
+
+For `addItemsToUniform[]`, `addItemsToVest[]` and `addItemsToBackpack[]`, a plain classname immediately followed by a number is treated as an item/count pair, as an alternative to repeating the item or using a `LIST_X(...)` macro.
+
+```sqf
+addItemsToVest[] = {
+    "30Rnd_556x45_Stanag", 6,
+    "30Rnd_556x45_Stanag_Tracer_Red", 2,
+    "SmokeShellGreen"
+};
+```
+
+This is fully compatible with existing `LIST_X(...)` macros, inheritance, `+=` class expansion, and the [weapons-in-backpacks](#special-case-weapons-in-backpacks) syntax below.
+
 ## Classes
-There are a couple of generic classes for you to use, ontop of being able to specify a unit classname and just designating a unit name. The priority in order is this:
+There are a couple of generic classes for you to use, on top of being able to specify a unit classname and just designating a unit name. The priority in order is this:
 
 * Loadouts/
     * AllUnits
